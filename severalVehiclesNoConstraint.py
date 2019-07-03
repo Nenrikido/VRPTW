@@ -5,7 +5,6 @@
 
 import generator as gen
 import sys
-import time
 import random as rn
 import instances
 
@@ -67,7 +66,5 @@ for vehicle in vehicles:
     iterations += 1
     vehicle['path'].append(0)
 
-# TODO : printing paths
-# print(path)
 print(f"The sum of all vehicle's travel duration is : {total_duration}\nThe amount of iterations is : {iterations}")
 

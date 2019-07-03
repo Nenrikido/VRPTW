@@ -20,7 +20,7 @@ def load(filename: str) -> tuple:
     size = int(meta[0])
     vehicles_amount = int(meta[1])
     matrix = np.array([[int(j) for j in i.split(',')] for i in lines[1:size + 1]])
-    tws = np.array([[Clock(int(j)) for j in i.split(',')] for i in lines[size + 2:]])
+    tws = np.array([[Clock(int(j)) for j in i.split(',')] for i in lines[size + 1:]])
     return size, vehicles_amount, matrix, tws
 
 

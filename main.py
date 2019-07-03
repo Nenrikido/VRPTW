@@ -85,8 +85,5 @@ for vehicle in vehicles:
 
     total_duration += vehicle['travel_duration']
 
-print("The paths are : ", *[str(i['path']) for i in vehicles])
+print("The paths are : ", *[str(i['path']) for i in vehicles], sep="\n")
 print(f"The sum of all vehicle's travel duration is : {total_duration}\nThe amount of iterations is : {iterations}")
-
-# TODO : printing paths
-# print()
