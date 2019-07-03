@@ -1,5 +1,5 @@
 """"
-    Comparatif des temps de convergence entre notre Algorithme et celui d'OR-TOOLS
+    Comparatif des solutions trouvé entre notre Algorithme et celui d'OR-TOOLS
 """
 import matplotlib.pyplot as plt
 import json

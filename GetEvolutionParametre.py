@@ -1,6 +1,5 @@
 """
-    Génere un grand nombre de temps de convergence pour des paramètres de départ similaire
-    Permettant ainsi d'en faire des stats
+    Test avec différent nombre de camion la résolution d'un même problème
 """
 import time
 import json

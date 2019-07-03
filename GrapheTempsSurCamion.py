@@ -1,5 +1,5 @@
 """"
-    On affiche sous forme de graphique le temps de convergence par rapport a la taille de l'échantillon
+    On affiche sous forme de graphique le temps de convergence en fonction du nombre de camion
 """
 import matplotlib.pyplot as plt
 import json
