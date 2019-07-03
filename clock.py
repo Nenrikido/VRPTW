@@ -30,6 +30,9 @@ class HourClock:
             temp_hour -= 24
         return temp_hour
 
+    def __int__(self):
+        return self.actual_hour
+
     def get_hour(self):
         """
             Get actual time of clock

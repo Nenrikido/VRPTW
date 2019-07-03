@@ -3,7 +3,6 @@
     Depot is index 0 by instance, (if we choose to change it we can implement a swaping algorithm)
 """
 
-
 import generator as gen
 import time
 

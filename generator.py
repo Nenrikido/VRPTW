@@ -6,6 +6,7 @@ import numpy as np
 import numpy.random as rn
 from clock import HourClock as Clock
 
+
 def generate_matrix(size: int = 10, edges_max_len: int = 6, edges_proba: float = 1.0) -> np.ndarray:
     """
         Generates a matrix of time/distance costs
@@ -43,7 +44,7 @@ def generate_time_windows(pop: int = 10) -> np.ndarray:
     # Generates starting times (random in [0, 23) hours)
     xs = np.array([Clock(rn.randint(24)) for _ in range(pop)])
 
-    # Generates endings time relative to starting times (delta is random in [6, 12) hours)
+    # Generates endings time relative to starting times (delta is random in [6, 12] hours)
     ys = np.array([Clock(x + rn.randint(6, 13)) for x in xs])
 
     # Merges
