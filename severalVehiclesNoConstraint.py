@@ -7,17 +7,23 @@ import generator as gen
 import sys
 import time
 import random as rn
+import instances
 
 
-if len(sys.argv) > 1:
-    size = int(sys.argv[-2])
-    vehicles_amount = int(sys.argv[-1])
+# Handles command line arguments
+matrix = None
+if len(sys.argv) == 3:
+    if sys.argv[1] == "instance":
+        size, vehicles_amount, matrix, _ = instances.load(sys.argv[2])
+    else:
+        size = int(sys.argv[1])
+        vehicles_amount = int(sys.argv[2])
 else:
     size = 20
     vehicles_amount = 5
 
-
-matrix = gen.generate_matrix(size)
+if matrix is None:
+    matrix = gen.generate_matrix(size)
 
 staying_nodes = list(range(1, len(matrix)))
 current_node = 0

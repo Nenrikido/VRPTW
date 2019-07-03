@@ -7,17 +7,25 @@ import sys
 import generator as gen
 from clock import HourClock as Clock
 import random as rn
+import instances
 
-if len(sys.argv) > 1:
-    size = int(sys.argv[-2])
-    vehicles_amount = int(sys.argv[-1])
+# Handles command line arguments
+matrix = None
+tws = None
+if len(sys.argv) == 3:
+    if sys.argv[1] == "instance":
+        size, vehicles_amount, matrix, tws = instances.load(sys.argv[2])
+    else:
+        size = int(sys.argv[1])
+        vehicles_amount = int(sys.argv[2])
 else:
     size = 20
     vehicles_amount = 5
 
 # Generates a time cost matrix and time window list
-matrix = gen.generate_matrix(size)
-tws = gen.generate_time_windows(size)
+if matrix is None:
+    matrix = gen.generate_matrix(size)
+    tws = gen.generate_time_windows(size)
 
 staying_nodes = list(range(1, len(matrix)))
 current_node = 0
