@@ -11,7 +11,7 @@ echantillon = 500
 # Nombre de test différent
 data = []
 
-camion = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
+camion = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
 
 # On éxecute le programme x fois
 for f in camion:
@@ -43,6 +43,6 @@ for f in camion:
             # On mesure le temps d'éxécution
             timeF = round(t2 - t1, 2)
             print("Le temps de résolution est de : " + str(timeF) + " seconde(s)")
-            data.append([f,timeF,solution,iteration])
+            data.append([f, timeF, solution, iteration])
             # On inscrit la liste des temps de convergence dans un JSON
             json.dump(data, open('StatEvolutionParametre.json', 'w'))

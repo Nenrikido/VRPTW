@@ -47,6 +47,6 @@ for f in echantillion:
             timeF = round(t2 - t1, 2)
             print("Le temps de résolution est de : " + str(timeF) + " seconde(s)")
             # On note le temps de convergence pour la taille de l'échantillon dans une liste
-            data.append([f, timeF,solution,20,iteration])
+            data.append([f, timeF, solution, 20, iteration])
             # On écrit la liste dans un JSON
             json.dump(data, open('dataGreedySansContrainte.json', 'w'))
