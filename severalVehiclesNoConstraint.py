@@ -8,19 +8,21 @@ import sys
 import time
 import random as rn
 
-t0 = time.time()
 
-# size = int(sys.argv[-1])
-size = 20
+if len(sys.argv) > 1:
+    size = int(sys.argv[-2])
+    vehicles_amount = int(sys.argv[-1])
+else:
+    size = 20
+    vehicles_amount = 5
 
-
-vehicles_amount = 5
 
 matrix = gen.generate_matrix(size)
 
 staying_nodes = list(range(1, len(matrix)))
 current_node = 0
 vehicles = []
+iterations = 0
 
 # First, random choose of path for each vehicles and fills paths array with it
 for start_path in rn.sample(staying_nodes, vehicles_amount):
@@ -34,6 +36,7 @@ while len(staying_nodes) > 0:
         if len(staying_nodes) == 0:
             break
 
+        iterations += 1
         # Makes a key value dictionary of costs
         current_costs = {}
         for x, y in enumerate(matrix[vehicle['path'][-1]]):
@@ -55,9 +58,10 @@ while len(staying_nodes) > 0:
 
 # Comes back to start
 for vehicle in vehicles:
+    iterations += 1
     vehicle['path'].append(0)
 
 # TODO : printing paths
 # print(path)
-print(total_duration)
-print(str(time.time() - t0)[:5])
+print(f"The sum of all vehicle's travel duration is : {total_duration}\nThe amount of iterations is : {iterations}")
+
