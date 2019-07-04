@@ -63,3 +63,11 @@ class HourClock:
         if standard_diff < 0:
             standard_diff += 24
         return standard_diff
+
+    def between(self, x, y) -> bool:
+        """
+            Returns if the clock is between hour x and hour y
+            :param x: (clock) first hour of interval
+            :param y: (clock) second hour of interval
+        """
+        return x.delta(y) > self.delta(y)
