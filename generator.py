@@ -41,11 +41,11 @@ def generate_time_windows(pop: int = 10) -> np.ndarray:
         :return: Array of time windows
     """
 
-    # Generates starting times (random in [0, 23) hours)
+    # Generates starting times (random in [0, 24) hours)
     xs = np.array([Clock(rn.randint(24)) for _ in range(pop)])
 
-    # Generates endings time relative to starting times (delta is random in [6, 12] hours)
-    ys = np.array([Clock(x + rn.randint(6, 13)) for x in xs])
+    # Generates endings time relative to starting times (delta is random in [6, 12) hours)
+    ys = np.array([Clock(x + rn.randint(6, 12)) for x in xs])
 
     # Merges
     array = np.stack((xs, ys), axis=-1)

@@ -8,6 +8,7 @@ import generator as gen
 from clock import HourClock as Clock
 import random as rn
 import instances
+import itertools
 
 # Handles command line arguments
 matrix = None
@@ -33,7 +34,7 @@ vehicles = []
 
 # First, random choose of path for each vehicles and fills paths array with it
 for start_path in rn.sample(staying_nodes, vehicles_amount):
-    vehicles.append({"path": [0, start_path], "clock": Clock(), "travel_duration": 0, "infos": []})
+    vehicles.append({"path": [0, start_path], "clock": Clock(), "travel_duration": 0})
     staying_nodes.remove(start_path)
 
 # Iterations counter
@@ -54,22 +55,30 @@ while len(staying_nodes) > 0:
         for x, y in enumerate(matrix[current_node]):
             iterations += 1
             if x in staying_nodes and x != current_node:
-                current_costs[x] = (y, *tws[x])
+                time_window = tws[x]
+                current_costs[x] = (y, *time_window, time_window[1].delta(vehicle['clock'] + y))
 
-        # Sorts it in "difference between clock and ending time of TW" order then ascending value order
-        sorted_costs = sorted(current_costs.items(), key=lambda kv: kv[1][2].delta(vehicle['clock'] + kv[1][0]))
+        # Sorts it in "difference between clock and ending time of TW + time of travel" order then ascending value order
+        sorted_costs = sorted(current_costs.items(), key=lambda kv: kv[1][3])
 
-        # Choose randomly between the first few indexes
-        min_index, (time_cost, twx, twy) = rn.choice(sorted_costs[:int(size/10) + 1])
+        # Choose randomly between the minimal choices
+        min_index, (time_cost, twx, twy, cost_with_constraint) = rn.choice(
+            [*itertools.takewhile(lambda cost: cost[1][3] == sorted_costs[0][1][3], sorted_costs)])
 
-        # Append it to the vehicle path
+        # Appends it to the vehicle path
         vehicle["path"].append(min_index)
 
-        # Handles waiting time if not in time window (compares with starting time of time window)
-        vehicle['travel_duration'] += vehicle['clock'].delta(twx)
-
-        # Changes vehicle clock and travel duration since start
+        # Changes vehicle clock to add travel duration to specific node
         vehicle['clock'].add(time_cost)
+
+        # Handles waiting time if not in time window and adds it to the total travel duration and the vehicle clock
+        if not vehicle['clock'].between(twx, twy):
+            waiting_time = vehicle['clock'].delta(twx)
+
+            vehicle['travel_duration'] += waiting_time
+            vehicle['clock'].add(waiting_time)
+
+        # Adds travel duration to specific node to total travel duration
         vehicle['travel_duration'] += time_cost
 
         # Remove the travelled node from the staying nodes
@@ -85,5 +94,7 @@ for vehicle in vehicles:
 
     total_duration += vehicle['travel_duration']
 
-print("The paths are : ", *[str(i['path']) for i in vehicles], sep="\n")
+print("The paths are : ",
+      *[f"Vehicule {i + 1} : {vehicle['path']} Durée : {vehicle['travel_duration']}" for i, vehicle in
+        enumerate(vehicles)], sep="\n")
 print(f"The sum of all vehicle's travel duration is : {total_duration}\nThe amount of iterations is : {iterations}")
