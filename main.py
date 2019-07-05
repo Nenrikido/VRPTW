@@ -95,6 +95,6 @@ for vehicle in vehicles:
     total_duration += vehicle['travel_duration']
 
 print("The paths are : ",
-      *[f"Vehicule {i + 1} : {vehicle['path']} Durée : {vehicle['travel_duration']}" for i, vehicle in
+      *[f"Vehicle {i + 1} : {vehicle['path']} Duration : {vehicle['travel_duration']}" for i, vehicle in
         enumerate(vehicles)], sep="\n")
 print(f"The sum of all vehicle's travel duration is : {total_duration}\nThe amount of iterations is : {iterations}")
